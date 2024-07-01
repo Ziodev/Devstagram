@@ -12,38 +12,72 @@
 
         <div class="md:w-4/12 bg-white p-6 rounded-lg shadow-xl">
 
-            <form action="/crear-cuenta" method="POST">
+            <form action="{{ route('register') }}" method="POST">
+
                 @csrf
+
                 <div class="mb-5">
                     <label for="name" id="name" class="mb-2 uppercase text-gray-500 font-bold">
                         Nombre
                     </label>
-                    <input type="text" id="name" name="name" placeholder="Tu Nombre" class="border p-3 w-full rounded-lg">
+                    <input type="text" id="name" name="name" placeholder="Tu Nombre" class="border p-3 w-full rounded-lg
+                     @error('name') border-red-500 @enderror" value="{{ old('name') }}">
+
+                    @error('name')
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="mb-5">
                     <label for="username" id="username" class="mb-2 uppercase text-gray-500 font-bold">
                         Username
                     </label>
-                    <input type="text" id="username" name="username" placeholder="Tu Nombre de Usuario" class="border p-3 w-full rounded-lg">
+
+                    <input type="text" id="username" name="username" placeholder="Tu Nombre de Usuario" class="border p-3 w-full rounded-lg
+                    @error('username') border-red-500 @enderror" value="{{ old('username') }}">
+
+                    @error('username')
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                    @enderror
+
                 </div>
                 <div class="mb-5">
                     <label for="email" id="email" class="mb-2 uppercase text-gray-500 font-bold">
                         Email
                     </label>
-                    <input type="email" id="username" name="email" placeholder="Tu Email de Registro" class="border p-3 w-full rounded-lg">
+
+                    <input type="email" id="username" name="email" placeholder="Tu Email de Registro" class="border p-3 w-full rounded-lg
+                     @error('email') border-red-500 @enderror" value="{{ old('email') }}">
+
+                    @error('email')
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="mb-5">
                     <label for="password" id="password" class="mb-2 uppercase text-gray-500 font-bold">
                         Password
                     </label>
-                    <input type="password" id="password" name="password" placeholder="Password de Registro" class="border p-3 w-full rounded-lg">
+
+                    <input type="password" id="password" name="password" placeholder="Password de Registro" class="border p-3 w-full rounded-lg
+                     @error('name') border-red-500 @enderror" value="{{ old('name') }}">
+
+                    @error('password')
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                    @enderror
+
                 </div>
                 <div class="mb-5">
-                    <label for="password_confirmation" id="password_confirmation" class="mb-2 uppercase text-gray-500 font-bold">
+                    <label for="password_confirmation" id="password_confirmation"
+                           class="mb-2 uppercase text-gray-500 font-bold">
                         Repetir Password
                     </label>
-                    <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Repite tu Password" class="border p-3 w-full rounded-lg">
+                    <input type="password" id="password_confirmation" name="password_confirmation"
+                           placeholder="Repite tu Password" class="border p-3 w-full
+                    rounded-lg @error('password_confirmation') border-red-500 @enderror">
+                    @error('password_confirmation')
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                    @enderror
                 </div>
+
                 <input type="submit" value="Crear cuenta" class="bg-sky-600 hover:bg-sky-700 transition-colors cursor-pointer
                     uppercase font-bold w-full rounded-lg p-3 text-white">
             </form>
