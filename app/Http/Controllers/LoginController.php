@@ -14,13 +14,16 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required'
         ]);
 
+
+
         //regresar a la vista anterior con el mensaje de las credenciales incorrectas
-        if (!auth()->attempt(request(['email', 'password']))){
+        if (!auth()->attempt($request->only(['email', 'password']), $request->has('remember'))) {
             return back()->with('mensaje', 'Credenciales Incorrectas');
         }
         return redirect()->route('posts.index');
