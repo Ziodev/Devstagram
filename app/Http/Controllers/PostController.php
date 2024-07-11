@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request; // Asegúrate de usar esta importación para Request
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -18,7 +18,11 @@ class PostController extends Controller
 
     public function index(User $user)
     {
-        dd($user);
-        return view('layouts.dashboard');
+        return view('layouts.dashboard',
+            ['user' => $user] );
+    }
+
+    public function create(){
+        return view('posts.create');
     }
 }
