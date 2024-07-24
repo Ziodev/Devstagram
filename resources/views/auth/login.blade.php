@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @guest()
     <div class="md:flex md:justify-center md:gap-10 md:items-center p-5">
         <div class="md:w-6/12">
             <img src="{{ asset('img/login.jpg') }}" alt="Imagen login de usuarios">
@@ -55,4 +56,9 @@
             </form>
         </div>
     </div>
+    @endguest
+
+    @auth()
+        {{route('layouts.dashboard')}}
+    @endauth
 @endsection

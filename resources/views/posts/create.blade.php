@@ -3,11 +3,18 @@
 @section('title')
 Creando una nueva publicacion
 @endsection
+@push('styles')
+<link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
+@endpush
 
 @section('content')
 <div class="md:flex md:items-center">
     <div class="md:w-1/2 px-10">
-        imagen aqui
+        <form action="{{ route('images.store')  }}" method="POST" id="dropzone" class="dropzone border-dashed border-2 w-full h-96
+        rounded flex flex-col justify-center items-center" enctype="multipart/form-data">
+        @csrf
+        </form>
+
     </div>
     <div class="md:w-1/2 p-10 bg-white p-6 rounded-lg shadow-xl mt-10 md:mt-10">
         <form action="{{ route('register') }}" method="POST">
@@ -29,13 +36,15 @@ Creando una nueva publicacion
                 <label for="descripcion" id="descripcion" class="mb-2 uppercase text-gray-500 font-bold">
                     Descripcion
                 </label>
-                <input type="textarea" id="titulo" name="descripcion" placeholder="Descripcion de la publicacion" class="border p-3 w-full rounded-lg
-                     @error('descripcion') border-red-500 @enderror" value="{{ old('descripcion') }}">
+                <textarea id="titulo" name="descripcion" placeholder="Descripcion de la publicacion" class="border p-3 w-full rounded-lg
+                     @error('descripcion') border-red-500 @enderror"></textarea>
 
                 @error('descripcion')
                 <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
                 @enderror
             </div>
+            <input type="submit" value="Crear publicacion" class="bg-sky-600 hover:bg-sky-700 transition-colors cursor-pointer
+                    uppercase font-bold w-full rounded-lg p-3 text-white">
         </form>
     </div>
 </div>
