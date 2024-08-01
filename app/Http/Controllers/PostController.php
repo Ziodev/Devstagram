@@ -37,13 +37,19 @@ class PostController extends Controller
             'image' => 'required'
         ]);
 
-        Post::create([
-
-            'titulo' => $request->titulo,
-            'descripcion' => $request->descripcion,
-            'image'=> $request->image,
-            'user_id' => Auth()->user()->id,
-        ]);
+//        Post::create([
+//
+//            'titulo' => $request->titulo,
+//            'descripcion' => $request->descripcion,
+//            'image'=> $request->image,
+//            'user_id' => Auth()->user()->id,
+//        ]);
+    $request->user()->posts()->create([
+        'titulo' => $request->titulo,
+        'descripcion' => $request->descripcion,
+        'image' => $request->image,
+        'user_id' => Auth()->user()->id,
+    ]);
 
         return redirect()->route('posts.index', auth()->user()->username);
     }
