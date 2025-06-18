@@ -48,10 +48,15 @@ class User extends Authenticatable
     }
     public function posts()
     {
-        return $this->hasMany(Post::class)->select([
-            'name',
-            'username',
-        ]);
+        return $this->hasMany(Post::class);
+//        return $this->hasMany(Post::class)->select([
+//            'name',
+//            'username',
+//        ]);
+    }
+
+    public function likes(){
+        return $this->hasMany(Like::class);
     }
 
 }
