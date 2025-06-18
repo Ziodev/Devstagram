@@ -15,13 +15,17 @@ class PostController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
     public function index(User $user)
     {
+        $posts = Post::where('user_id', $user->id)->paginate(8);
+
         return view('layouts.dashboard',
-            ['user' => $user]);
+            ['user' => $user,
+                'posts' => $posts
+            ]);
     }
 
     public function create()
@@ -44,12 +48,35 @@ class PostController extends Controller
 //            'image'=> $request->image,
 //            'user_id' => Auth()->user()->id,
 //        ]);
-    $request->user()->posts()->create([
-        'titulo' => $request->titulo,
-        'descripcion' => $request->descripcion,
-        'image' => $request->image,
-        'user_id' => Auth()->user()->id,
-    ]);
+        $request->user()->posts()->create([
+            'titulo' => $request->titulo,
+            'descripcion' => $request->descripcion,
+            'image' => $request->image,
+            'user_id' => Auth()->user()->id,
+        ]);
+
+        return redirect()->route('posts.index', auth()->user()->username);
+    }
+
+    public function show(User $user, Post $post)
+    {
+        return view('posts.show', [
+            'post' => $post,
+            'user'=> $user,
+        ]);
+    }
+
+    public function destroy(Post $post)
+    {
+        $this->authorize('delete', $post);
+        $post->delete();
+
+        if ($post->image) {
+            $imagePath = public_path('uploads/' . $post->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
 
         return redirect()->route('posts.index', auth()->user()->username);
     }
