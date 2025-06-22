@@ -9,6 +9,7 @@
         <div class="md:w-1/2">
             <img src="{{ asset('uploads') . '/' . $post->image }}" alt="imagen del post" {{$post->titulo}}">
             <div class="p-3 flex-col items-center gap-4">
+                <div class="flex items-center gap-2 ">
                 @auth
                @if($post->checkLike(auth()->user()))
                         <form method="POST" action="{{ route('posts.likes.destroy', $post) }}">
@@ -46,6 +47,7 @@
                 <p class="font-bold">{{ $post->likes->count() }}
                     <span class="font-normal">Likes</span>
                 </p>
+                </div>
                 <div>
                     <p class="font-bold">{{$post->user->username}}</p>
                     <p class="text-sm text-gray-500">
