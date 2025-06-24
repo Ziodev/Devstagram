@@ -20,7 +20,8 @@ class ComentarioController extends Controller
             'post_id' => $post->id,
             'comentario' => $request->comentario,
         ]);
-        return back()->with('mensaje', 'Comentario agregado' );
+        return back();
+
     }
 }
 
